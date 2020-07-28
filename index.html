@@ -46,6 +46,17 @@
 			xhr.setRequestHeader("Content-Type","application/json");
 			xhr.send();   
 		}
+
+		function changeSalary(){
+			var obj = {};
+			obj.id = document.getElementById("salaryid").value;
+			obj.salary = document.getElementById("salarychange").value;
+			objJSON = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();
+			xhr.open("PUT","http://localhost:8082/api/employee/update/"+obj.id,true);
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+		}
 	</script>
 
 </head>
@@ -71,11 +82,17 @@
 		</section>
 		<section>
 			<h3>Show all employees</h3>
-			
+			<p>
 				<button onclick="allEmployees()">Show</button>
 				<div id="allemployees"></div>
+			</p>
+		</section>
+		<section>
+			<h3>Change Salary by Id</h3>
 			<p>
-
+				<b>Id </b><input type=text id=salaryid>
+				<b>New Salary </b><input type=text id=salarychange>
+				<input type=button onclick=changeSalary() value=change>
 			</p>
 		</section>
 	</main>
