@@ -21,26 +21,63 @@
 			xhr.send(objJSON);   
 			alert(emp+" added to the database");
 		}
+
+		function allEmployees(){
+			var txt = "";
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if (this.readyState == 4 && this.status == 200){
+				var myObj = JSON.parse(this.responseText);
+				txt +="<table border ='1'>"+"<th>"+"Id"+"</th>"+ "<th>"+"Name"+"</th>" + "<th>"+"Salary"+"</th>" + "<th>"+"Job"+"</th>"
+				for (x in myObj){
+					txt +=  "<tr>"
+						+ "<td>" + myObj[x].id + "</td>"+ 
+						"<td>" + myObj[x].name + "</td>"+
+						"<td>" + myObj[x].salary + "</td>"+
+						"<td>" + myObj[x].titel + "</td>"
+						"</tr>";
+				}
+				txt+="</table>"
+				
+				document.getElementById("allemployees").innerHTML = txt;
+			}
+		};
+			xhr.open("GET","http://localhost:8082/api/employee/all", true);
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send();   
+		}
 	</script>
 
 </head>
 <body>
-	<h1>The Organisation</h1>
-	<p>	
-		<label for="employeetype"></label><b>Choose employee type:</b></label>
+	<main>
+		<section>
+			<h1>The Organisation</h1>
+			<h3>Add employee</h3>
+				<p>	
+					<label for="employeetype"></label><b>Job </b></label>
 
-		<select name="employeetype" id="employee">
-		  <option value="programmer">Programmer</option>
-		  <option value="consultant">Consultant</option>
-		  <option value="hrmanager">HR manager</option>
-		  <option value="departmentmanager">Department manager</option>
-		</select>
+					<select name="employeetype" id="employee">
+						<option value="programmer">Programmer</option>
+						<option value="consultant">Consultant</option>
+						<option value="hrmanager">HR manager</option>
+						<option value="departmentmanager">Department manager</option>
+					</select>
 
-		<b>Name </b><input type=text id=name>
-		<b>Salary </b><input type=text id=salary>
-		<input type=button onclick=addEmployee() value=add>
-	</p>
+					<b>Name </b><input type=text id=name>
+					<b>Salary </b><input type=text id=salary>
+					<input type=button onclick=addEmployee() value=add>
+				</p>
+		</section>
+		<section>
+			<h3>Show all employees</h3>
+			
+				<button onclick="allEmployees()">Show</button>
+				<div id="allemployees"></div>
+			<p>
 
-
+			</p>
+		</section>
+	</main>
 </body>
 </html>
