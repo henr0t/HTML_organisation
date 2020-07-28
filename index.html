@@ -57,6 +57,16 @@
 			xhr.setRequestHeader("Content-Type","application/json");
 			xhr.send(objJSON);   
 		}
+
+		function deleteEmployee(){
+			var obj = {};
+			obj.id = document.getElementById("deleteid").value;
+			objJSON = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();
+			xhr.open("DELETE","http://localhost:8082/api/employee/delete/"+obj.id,true);
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+		}
 	</script>
 
 </head>
@@ -93,6 +103,13 @@
 				<b>Id </b><input type=text id=salaryid>
 				<b>New Salary </b><input type=text id=salarychange>
 				<input type=button onclick=changeSalary() value=change>
+			</p>
+		</section>
+		<section>
+			<h3>Delete Employee by Id</h3>
+			<p>
+				<b>Id </b><input type=text id=deleteid>
+				<input type=button onclick=deleteEmployee() value=delete>
 			</p>
 		</section>
 	</main>
