@@ -8,12 +8,39 @@
 		function alertFunction(){
 			alert("It works!");
 		}
+
+		function addEmployee(){
+			var obj = {};   
+			obj.name = document.getElementById("name").value;
+			obj.salary = document.getElementById("salary").value;
+			objJSON = JSON.stringify(obj);
+			var emp = document.getElementById("employee").value;
+			var xhr = new XMLHttpRequest();					
+			xhr.open("POST","http://localhost:8082/api/employee/new/"+emp,true);     
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+			alert(emp+" added to the database");
+		}
 	</script>
 
 </head>
 <body>
-	<div class=button>
-		<button onclick="alertFunction()">Test knop</button>
-	</div>
+	<h1>The Organisation</h1>
+	<p>	
+		<label for="employeetype"></label><b>Choose employee type:</b></label>
+
+		<select name="employeetype" id="employee">
+		  <option value="programmer">Programmer</option>
+		  <option value="consultant">Consultant</option>
+		  <option value="hrmanager">HR manager</option>
+		  <option value="departmentmanager">Department manager</option>
+		</select>
+
+		<b>Name </b><input type=text id=name>
+		<b>Salary </b><input type=text id=salary>
+		<input type=button onclick=addEmployee() value=add>
+	</p>
+
+
 </body>
 </html>
