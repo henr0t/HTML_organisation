@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Opdracht Front End</title>
+	<link rel="stylesheet" href="css/styling.css">
 	<script>
 		function alertFunction(){
 			alert("It works!");
@@ -28,14 +29,17 @@
 			xhr.onreadystatechange = function(){
 				if (this.readyState == 4 && this.status == 200){
 				var myObj = JSON.parse(this.responseText);
-				txt +="<table border ='1'>"+"<th>"+"Id"+"</th>"+ "<th>"+"Name"+"</th>" + "<th>"+"Salary"+"</th>" + "<th>"+"Job"+"</th>"
+				txt +="<table border ='1'>"+"<th>"+"Id"+"</th>"+ "<th>"+"Name"+"</th>" + "<th>"+"Salary"+"</th>" + "<th>"+"Job"+"</th>" + "<th>"+"Phone"+"</th>"
 				for (x in myObj){
 					txt +=  "<tr>"
 						+ "<td>" + myObj[x].id + "</td>"+ 
 						"<td>" + myObj[x].name + "</td>"+
 						"<td>" + myObj[x].salary + "</td>"+
 						"<td>" + myObj[x].titel + "</td>"
-						"</tr>";
+						if(myObj[x].phone != null){
+							txt += "<td>" + myObj[x].phone.phonenumber +"</td>"}
+							else{txt += "<td>" + "No phone" +"</td>"}
+							txt +="</tr>";
 				}
 				txt+="</table>"
 				
@@ -67,13 +71,36 @@
 			xhr.setRequestHeader("Content-Type","application/json");
 			xhr.send(objJSON);   
 		}
+
+		function addPhone(){
+			var obj = {};
+			obj.emphid = document.getElementById("emphid").value;
+			obj.phoneid = document.getElementById("phoneid").value;
+			objJSON = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();					
+			xhr.open("POST","http://localhost:8082/api/phone/employee/"+obj.emphid+"/"+obj.phoneid,true);     
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+		}
+
+		function createPhone(){
+			var obj = {};
+			obj.phonenumber = document.getElementById("phonenumber").value;
+			objJSON = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();					
+			xhr.open("POST","http://localhost:8082/api/phone/new/",true);     
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+		}
 	</script>
 
 </head>
 <body>
 	<main>
-		<section>
+		<section class="header-section">
 			<h1>The Organisation</h1>
+		</section>
+		<section class="container">
 			<h3>Add employee</h3>
 				<p>	
 					<label for="employeetype"></label><b>Job </b></label>
@@ -90,14 +117,16 @@
 					<input type=button onclick=addEmployee() value=add>
 				</p>
 		</section>
-		<section>
+		<hr>
+		<section class="container">
 			<h3>Show all employees</h3>
 			<p>
 				<button onclick="allEmployees()">Show</button>
 				<div id="allemployees"></div>
 			</p>
 		</section>
-		<section>
+		<hr>
+		<section class="container">
 			<h3>Change Salary by Id</h3>
 			<p>
 				<b>Id </b><input type=text id=salaryid>
@@ -105,13 +134,32 @@
 				<input type=button onclick=changeSalary() value=change>
 			</p>
 		</section>
-		<section>
+		<hr>
+		<section class="container">
 			<h3>Delete Employee by Id</h3>
 			<p>
 				<b>Id </b><input type=text id=deleteid>
 				<input type=button onclick=deleteEmployee() value=delete>
 			</p>
 		</section>
+		<hr>
+		<section class="container">
+			<h3>Create phone</h3>
+			<p>
+				<b>+31 </b><input type=text id=phonenumber>
+				<input type=button onclick=createPhone() value=create>
+			</p>
+		</section>
+		<hr>
+		<section class="container">
+			<h3>Add phone to Employee</h3>
+			<p>
+				<b>Employee Id </b><input type=text id=emphid>
+				<b>Phone Id </b><input type=text id=phoneid>
+				<input type=button onclick=addPhone() value=add>
+			</p>
+		</section>
+		<hr>
 	</main>
 </body>
 </html>
