@@ -1,25 +1,51 @@
 * {   
     box-sizing: border-box;
     padding: 0;
-    margin: 10;
+    margin: 0;
+}
+.header {
+    padding: 10px 16px;
+    width: 100%;
+    text-align: center;
+    background: #9D3FF3;
+    color: white;
+    font-size: 12px;
+  }
+
+  .header img {
+    float: left;
+    position: relative;
+    bottom: 15px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .header-section{
+    background-color: #ffffff;
+    text-align: center;
+    padding: 43px 16px;
+    margin-bottom: 50px;
+  }
+
+  .container {
+    max-width: 1400px;
+    padding: 0 40px;
+    margin: auto;
 }
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
     line-height: 26px;
-    color: white;
+    color: #000000;
     background-repeat: no-repeat;
-    background-color: #363636;
+    background-color: #F3F3F3;
 }
 
 h1 {
     font-size: 48px;
     line-height: 72px;
-    margin: 60px 40px;
-  
- 
-}
+    }
 
 h3 {
     font-size: 24px;
@@ -30,10 +56,7 @@ h3 {
 p {
     font-size: 16px;
     margin-bottom: 20px;
-}
-
-.header-section {
-    background-color: #7F7F7F;
+    
 }
 
 .container {
@@ -42,17 +65,11 @@ p {
     margin: auto;
 }
 
-footer{
-    background-color: #545454;
-    padding:30px;
-    color: white;
-}
-
 button {
     padding: 5px 5px;
-    background: #6C6C6C;
-    color: white;
-    border: 0px;
+    background: #ffffff;
+    color: #000000;
+    border: 1px;
     border-style: none;
     border-radius: 4px;
     font-size: 12px;
@@ -60,14 +77,14 @@ button {
 }
 
 button:hover {
-    background: #838383;
+    background: #9D3FF3;
     color: white;
 }
 
 input[type=button] {
     padding: 5px 5px;
-    background: #6C6C6C;
-    color: white;
+    background: #ffffff;
+    color: #000000;
     border: 0px;
     border-style: none;
     border-radius: 4px;
@@ -76,19 +93,25 @@ input[type=button] {
 }
 
 input[type=button]:hover {
-    background: #838383;
+    background: #9D3FF3;
     color: white;
 }
 
 input[type=text]{
-    background: #8C8C8C;
-    color: white;
+    background: #ffffff;
+    color: #000000;
 }
 
 table, th, td {
     text-align: center;
     table-layout: fixed;
     border-collapse: collapse;
-    border: 2px solid #FFFFFF;
-    background-color: #383838;
+    border: 2px solid #000000;
+    background-color: #ffffff;
+  }
+
+  footer{
+      background-color: #000000;
+      color: white;
+      padding: 30px;
   }
