@@ -29,7 +29,7 @@
 			xhr.onreadystatechange = function(){
 				if (this.readyState == 4 && this.status == 200){
 				var myObj = JSON.parse(this.responseText);
-				txt +="<table border ='1'>"+"<th>"+"Id"+"</th>"+ "<th>"+"Name"+"</th>" + "<th>"+"Salary"+"</th>" + "<th>"+"Job"+"</th>" + "<th>"+"Phone"+"</th>"
+				txt +="<table border ='1'>"+"<th>"+"Id"+"</th>"+ "<th>"+"Name"+"</th>" + "<th>"+"Salary"+"</th>" + "<th>"+"Job"+"</th>" + "<th>"+"Phone"+"</th>" + "<th>"+"Birthday"+"</th>"
 				for (x in myObj){
 					txt +=  "<tr>"
 						+ "<td>" + myObj[x].id + "</td>"+ 
@@ -39,8 +39,13 @@
 						if(myObj[x].phone != null){
 							txt += "<td>" + myObj[x].phone.phonenumber +"</td>"}
 							else{txt += "<td>" + "No phone" +"</td>"}
+							if(myObj[x].date != null){
+							txt += "<td>" + myObj[x].date +"</td>"}
+							else{txt += "<td>" + "No date" +"</td>"}
+							
 							txt +="</tr>";
 				}
+				
 				txt+="</table>"
 				
 				document.getElementById("allemployees").innerHTML = txt;
@@ -92,14 +97,36 @@
 			xhr.setRequestHeader("Content-Type","application/json");
 			xhr.send(objJSON);   
 		}
+
+		function saveDate(){
+			var obj = {};
+			obj.dateid = document.getElementById("dateid").value;
+			obj.date = document.getElementById("date").value;
+			objJSON = JSON.stringify(obj);
+			var xhr = new XMLHttpRequest();					
+			xhr.open("PUT","http://localhost:8082/api/employee/birthdate/"+obj.dateid,true);     
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send(objJSON);   
+		}
 	</script>
 
 </head>
 <body>
-	<main>
-		<section class="header-section">
+	<header>
+		<div class="header">
+			<a href="index.html">
+				<img src="logo.png" alt="logo"/>
+				</a> 
 			<h1>The Organisation</h1>
-		</section>
+		  </div>
+		  <section class="header-section">
+                <div>
+                            <p><i>(noun) </i><b>organization</b>: an organized group of people with a particular purpose, such as a business or government department.</p>
+                </div>
+            </div>
+        </section>
+    </header>
+	<main>
 		<section class="container">
 			<h3>Add employee</h3>
 				<p>	
@@ -160,6 +187,31 @@
 			</p>
 		</section>
 		<hr>
+		<section class="container">
+			<h3>Set date of birth by id</h3>
+			<p>
+				<b>Id </b><input type=text id=dateid>
+				<label>Date:</label>
+				<input type="date" id="date">
+				<input type="button" onclick=saveDate() value=submit>
+			</p>
+		</section>
+		<hr>
+		<section class="container">
+			<h3>Time test</h3>
+			<p>
+				<label>Start:</label>
+				<input type="time" min="01:00" required>
+				<label>Eind:</label>
+				<input type="time" max="00:00" required>
+				<input type="submit">
+			</p>
+		</section>
 	</main>
+	<footer>
+        <div class="container">
+            <small>© 2020 Henry </small>
+        </div>
+    </footer>
 </body>
 </html>
